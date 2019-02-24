@@ -1,0 +1,12 @@
+- name: upgrade all packages
+  yum: name=* state=latest
+
+- yum:
+    name:
+      - git
+      - gcc
+      - openssl-devel
+      - readline-devel
+      - zlib-devel
+      - sqlite-devel
+

@@ -1,0 +1,26 @@
+- name: create app dir
+  file:
+    path: "/opt/sample-app"
+    state: directory
+    owner: ec2-user
+
+- name: git clone app
+  become_user: ec2-user
+  git:
+    repo: "https://github.com/rinjin5th/rails-example.git"
+    dest: "/opt/sample-app"
+
+- name: gem install
+  bundler:
+    state: present
+    executable: /usr/local/lib/dev/ruby/bin/bundler
+    gemfile: /opt/sample-app/Gemfile
+
+- name: put init.d
+  copy:
+    src: ../files/puma
+    dest: /etc/init.d/
+    mode: 755
+
+- name: autorun puma
+  command: chkconfig puma on

@@ -1,0 +1,19 @@
+- name: create xbuild dir
+  file:
+    path: "/opt/xbuild"
+    state: directory
+    owner: ec2-user
+    group: ec2-user
+
+- name: install xbuild
+  become: yes
+  become_user: ec2-user
+  git:
+    repo: "https://github.com/tagomoris/xbuild.git"
+    dest: "/opt/xbuild"
+
+- name: create lib dir
+  file:
+    path: "/usr/local/lib/dev"
+    state: directory
+    owner: ec2-user

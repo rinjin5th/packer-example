@@ -1,0 +1,15 @@
+- name: create nodejs dir
+  file:
+    path: "/usr/local/lib/dev/node"
+    state: directory
+    owner: ec2-user
+
+- name: install nodejs
+  become_user: ec2-user
+  shell: "/opt/xbuild/node-install {{ nodejs_version }} /usr/local/lib/dev/node"
+
+- name: set path
+  become_user: ec2-user
+  lineinfile: >
+    dest="~/.bash_profile"
+    line="export PATH=/usr/local/lib/dev/node/bin:$PATH"
