@@ -1,0 +1,17 @@
+[Unit]
+Description=Puma Application Server
+After=network.target
+
+[Service]
+Type=simple
+User=ec2-user
+WorkingDirectory=/opt/sample-app/
+Environment="RAILS_ENV=development"
+Environment="PORT=3000"
+Environment="PATH=/usr/local/lib/dev/ruby/bin:/usr/local/lib/dev/node/bin:$PATH"
+ExecStart=/usr/local/lib/dev/ruby/bin/bundle exec puma -C /opt/sample-app/config/puma.rb
+TimeoutSec=300
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

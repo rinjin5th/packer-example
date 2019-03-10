@@ -18,9 +18,13 @@
 
 - name: put init.d
   copy:
-    src: ../files/puma
-    dest: /etc/init.d/
+    src: ../files/puma.service
+    dest: /etc/systemd/system/
     mode: 755
 
-- name: autorun puma
-  command: chkconfig puma on
+- name: restart puma.service
+  systemd:
+    name: puma.service
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
